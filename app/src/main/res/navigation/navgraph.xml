@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.mithilakshar.learnsource.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_onboardFragmentOne"
+            app:destination="@id/onboardFragmentOne" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardFragmentOne"
+        android:name="com.mithilakshar.learnsource.onboardFragmentOne"
+        android:label="fragment_onboard_one"
+        tools:layout="@layout/fragment_onboard_one" />
+    <fragment
+        android:id="@+id/onboardFragmentTwo"
+        android:name="com.mithilakshar.learnsource.OnboardFragmentTwo"
+        android:label="fragment_onboard_two"
+        tools:layout="@layout/fragment_onboard_two" />
+    <fragment
+        android:id="@+id/onboardFragmentThree"
+        android:name="com.mithilakshar.learnsource.OnboardFragmentThree"
+        android:label="fragment_onboard_three"
+        tools:layout="@layout/fragment_onboard_three" />
+</navigation>
