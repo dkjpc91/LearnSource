@@ -1,5 +1,6 @@
 package com.mithilakshar.learnsource
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.mithilakshar.learnsource.databinding.FragmentSplashBinding
+import kotlinx.coroutines.Runnable
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,8 @@ class SplashFragment : Fragment() {
     private lateinit var binding: FragmentSplashBinding
     private var charIndex: Int = 0
     private val textToType="Learn Source"
-    private lateinit var substring:String
+    private var mediaPlayer: MediaPlayer? = null
+    private var mediaFlag:Boolean= false
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -40,41 +43,54 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //function to create Typing Effect.
-        startTypingEffect()
+
+        if (mediaFlag) {
+        startTypingEffect()}
 
 
     }
 
+    val handler=Handler(Looper.getMainLooper())
     private fun startTypingEffect() {
         //function to create Typing Effect.
-        val handler=Handler(Looper.getMainLooper())
+
         val delay: Long = 350 // Adjust the delay between each character
 
-        handler.postDelayed(object :Runnable{
-            override fun run() {
 
-                if (charIndex<=textToType.length){
+            handler.postDelayed(object :Runnable{
+                override fun run() {
 
-                    binding.splashText.text=textToType.substring(0,charIndex)
+                    if (charIndex<=textToType.length){
 
-                    charIndex++
-
-                    handler.postDelayed(this,delay)
-
-                }
-                else{
-
-                    handler.postDelayed(object :Runnable{
-                        override fun run() {
-                            findNavController().navigate(R.id.action_splashFragment_to_onboardFragmentOne)
+                        if (charIndex <= textToType.length-2) {
+                            //Initialize MediaPlayer with the click sound
+                            mediaPlayer = MediaPlayer.create(context, R.raw.keypress)
+                            mediaPlayer?.start()
                         }
-                    },1000)
 
+                        binding.splashText.text=textToType.substring(0,charIndex)
+
+                        charIndex++
+
+                        handler.postDelayed(this,delay)
+
+                    }
+                    else{
+
+                        handler.postDelayed(object :Runnable{
+                            override fun run() {
+
+                                findNavController().navigate(R.id.action_splashFragment_to_onboardFragmentOne)
+                            }
+                        },1000)
+
+
+                    }
 
                 }
+            },delay)
 
-            }
-        },delay)
+
 
 
 
@@ -91,7 +107,34 @@ class SplashFragment : Fragment() {
 
 
 
+
+
     }
+
+
+    override fun onStop() {
+        super.onStop()
+        mediaPlayer?.also {
+            if (it.isPlaying) {
+                it.stop()
+                it.release()
+                mediaPlayer = null
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaFlag=true
+        handler.removeCallbacksAndMessages(null)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startTypingEffect()
+    }
+
 
     companion object {
         /**
@@ -111,5 +154,9 @@ class SplashFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+
     }
+
+
 }
