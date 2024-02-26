@@ -1,5 +1,6 @@
 package com.mithilakshar.learnsource
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -45,7 +46,10 @@ class SplashFragment : Fragment() {
         //function to create Typing Effect.
 
         if (mediaFlag) {
-        startTypingEffect()}
+        startTypingEffect()
+
+
+        }
 
 
     }
@@ -80,7 +84,13 @@ class SplashFragment : Fragment() {
                         handler.postDelayed(object :Runnable{
                             override fun run() {
 
-                                findNavController().navigate(R.id.action_splashFragment_to_onboardFragmentOne)
+                                val sharedPref = context?.getSharedPreferences("myPref", Context.MODE_PRIVATE)
+                                val retrievedName = sharedPref?.getString("onboard", "notdone")
+                                if (retrievedName=="done"){ findNavController().navigate(R.id.action_splashFragment_to_homeFragment)}
+                                else{ findNavController().navigate(R.id.action_splashFragment_to_onboardFragmentOne)}
+
+
+
                             }
                         },1000)
 

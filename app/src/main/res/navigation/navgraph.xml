@@ -13,12 +13,23 @@
         <action
             android:id="@+id/action_splashFragment_to_onboardFragmentOne"
             app:destination="@id/onboardFragmentOne" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/onboardFragmentOne"
         android:name="com.mithilakshar.learnsource.onboardFragmentOne"
         android:label="fragment_onboard_one"
-        tools:layout="@layout/fragment_onboard_one" />
+        tools:layout="@layout/fragment_onboard_one" >
+        <action
+            android:id="@+id/action_onboardFragmentOne_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/onboardFragmentOne"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/onboardFragmentTwo"
         android:name="com.mithilakshar.learnsource.OnboardFragmentTwo"
@@ -29,4 +40,9 @@
         android:name="com.mithilakshar.learnsource.OnboardFragmentThree"
         android:label="fragment_onboard_three"
         tools:layout="@layout/fragment_onboard_three" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.mithilakshar.learnsource.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>

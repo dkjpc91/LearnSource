@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".OnboardFragmentTwo">
+    tools:context=".OnboardFragmentFour">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -23,7 +23,7 @@
             android:layout_weight="6"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/booksa1">
+            app:lottie_rawRes="@raw/booksa3">
 
         </com.airbnb.lottie.LottieAnimationView>
 
@@ -45,7 +45,6 @@
 
 
     </LinearLayout>
-
 
 
 

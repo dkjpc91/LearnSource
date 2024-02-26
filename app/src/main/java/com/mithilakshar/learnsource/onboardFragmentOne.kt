@@ -1,5 +1,6 @@
 package com.mithilakshar.learnsource
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.mithilakshar.learnsource.databinding.FragmentOnboardOneBinding
 
@@ -24,6 +26,7 @@ class onboardFragmentOne : Fragment() {
 
     private lateinit var binding: FragmentOnboardOneBinding
     private lateinit var  handler:Handler
+    private var  index=0
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,7 +43,31 @@ class onboardFragmentOne : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val list= arrayListOf(OnboardFragmentTwo(),OnboardFragmentThree(),OnboardFragmentFour())
+        val onboardViewPagerAdapter=onboardViewPagerAdapter(list,parentFragmentManager,lifecycle)
+        binding.viewPager.adapter=onboardViewPagerAdapter
 
+        val sharedPref = context?.getSharedPreferences("myPref", Context.MODE_PRIVATE)
+
+        val springDotsIndicator = binding.springDotsIndicator
+        val viewPager = binding.viewPager
+        springDotsIndicator.attachTo(viewPager)
+
+        binding.materialButton.setOnClickListener {
+
+            if (index==list.size-2){binding.viewPager.currentItem=++index
+            binding.materialButton.text="Finish"}
+            else if (index==list.size-1){
+
+                if (sharedPref != null) {
+                    sharedPref.edit().putString("onboard", "done").apply()
+                }
+
+
+
+                findNavController().navigate(R.id.action_onboardFragmentOne_to_homeFragment)}
+            else{binding.viewPager.currentItem=++index}
+        }
 
 
 
