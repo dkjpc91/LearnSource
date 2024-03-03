@@ -47,11 +47,18 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_category"
-            app:destination="@id/category" />
+            app:destination="@id/category"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/category"
         android:name="com.mithilakshar.learnsource.category"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/bookdescription"
+        android:name="com.mithilakshar.learnsource.bookdescription"
+        android:label="fragment_bookdescription"
+        tools:layout="@layout/fragment_bookdescription" />
 </navigation>

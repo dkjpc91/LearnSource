@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.mithilakshar.learnsource.databinding.FragmentHomeBinding
 import com.mithilakshar.learnsource.databinding.FragmentOnboardOneBinding
 
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
         list.add(homedata("Name3",0))
         list.add(homedata("Name4",1))
 
-        var homerecylceradapter= homerecylceradapter(list,requireContext())
+        var homerecylceradapter= homerecylceradapter(list,requireContext(),findNavController())
         binding.homeRecycler.adapter=homerecylceradapter
     }
 
