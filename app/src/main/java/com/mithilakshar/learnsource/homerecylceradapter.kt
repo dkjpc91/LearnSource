@@ -16,7 +16,7 @@ class homerecylceradapter(var datalist: ArrayList<homedata>,var context: Context
             binding.apply{
 
 
-                textView.text="NEw horror "
+
 
                 var list= arrayListOf<homedata>()
                 list.add(homedata("Name1",1))
