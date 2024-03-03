@@ -1,6 +1,7 @@
 package com.mithilakshar.learnsource
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,12 @@ class hrcnestedadapter(var list: ArrayList<homedata>,var context: Context):Recyc
 
             binding.apply{
 
+                binding.root.setOnClickListener {
+
+                    val intent= Intent(context,bookdescriptions::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                }
 
             }
         }

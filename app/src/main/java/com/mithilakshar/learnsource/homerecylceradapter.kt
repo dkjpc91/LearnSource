@@ -1,6 +1,7 @@
 package com.mithilakshar.learnsource
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
@@ -25,11 +26,8 @@ class homerecylceradapter(var datalist: ArrayList<homedata>,var context: Context
                 mSeeAllBtn.setOnClickListener {
 
 
-                        val navOptions = NavOptions.Builder()
-                            .setPopUpTo(R.id.homeFragment, inclusive = false) // Replace with your fragment ID
-                            .build()
-                        // Navigate to the fragment
-                        navController.navigate(R.id.category,null,navOptions)
+                    navController.navigate(R.id.action_homeFragment_to_bookcategory)
+
 
 
                 }
@@ -57,6 +55,19 @@ class homerecylceradapter(var datalist: ArrayList<homedata>,var context: Context
         fun specialbind(homeModel:homedata,context:Context,navController: NavController){
 
             binding.apply{
+
+                mReadBookBtn.setOnClickListener { val intent= Intent(context,bookdescriptions::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent) }
+
+                binding.root.setOnClickListener {
+
+                    val intent= Intent(context,bookdescriptions::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+
+
+                }
 
             }
 
