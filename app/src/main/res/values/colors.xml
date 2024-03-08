@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="book_handle">#5E222222</color>
     <color name="blue">#03A9F4</color>
+    <color name="purple_500">#F86EE1</color>
 </resources>

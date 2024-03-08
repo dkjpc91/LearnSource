@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Environment
 import androidx.lifecycle.MutableLiveData
 import com.mithilakshar.learnsource.utils.myResponses
+import java.io.File
 
 class repo(val context: Context) {
 
@@ -17,6 +18,17 @@ class repo(val context: Context) {
 
     @SuppressLint("Range")
     suspend fun downloadpdf(url:String, fileName:String){
+        val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),fileName)
+        if (file.exists()){
+            val model = DownloadModel(
+                progress = 100,
+                isDownloaded =true ,
+                downloadId = -1,
+                filePath = file.toURI().toString()
+            )
+            downloadLiveData.postValue(myResponses.Success(model))
+            return
+        }
 
         downloadLiveData.postValue(myResponses.Loading())
 
