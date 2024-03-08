@@ -33,7 +33,7 @@ class bookdescriptions : AppCompatActivity() {
         binding.mReadBookBtn.setOnClickListener {
 
 
-            viewModel.downloadFile("https://icseindia.org/document/sample.pdf","book.pdf")
+            viewModel.downloadFile("https://cdn.shopify.com/s/files/1/2081/8163/files/002-GINGER-THE-GIRAFFE-Free-Childrens-Book-By-Monkey-Pen.pdf?v=1589846892","book.pdf")
             val dialogBinding = LayoutProgressBinding.inflate(layoutInflater)
             val dialog=Dialog(activity).apply {
                 setCancelable(false)

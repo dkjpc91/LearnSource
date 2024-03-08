@@ -20,14 +20,18 @@ class pdfscreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityPdfscreenBinding.inflate(layoutInflater)
-        this.window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         setContentView(binding.root)
         supportActionBar?.hide()
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
         setupBasicViews()
 
         binding.apply {
-            bookPdf = intent.getStringExtra("book_pdf").toString()
-            bookId = intent.getStringExtra("book_id").toString()
+            bookPdf = intent.getStringExtra("book.pdf").toString()
 
             pdfview.fromUri(bookPdf.toUri())
                 .swipeHorizontal(false)
