@@ -1,7 +1,10 @@
 package com.mithilakshar.learnsource
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +25,8 @@ class hrcnestedadapter(var list: ArrayList<homedata>,var context: Context):Recyc
 
                     val intent= Intent(context,bookdescriptions::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent)
+                    val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity, Pair.create(imageView,"BookTrans"))
+                    context.startActivity(intent,options.toBundle())
                 }
 
             }

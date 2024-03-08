@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.mithilakshar.learnsource.databinding.ActivityBookcategoryBinding
+import com.mithilakshar.learnsource.utils.springscroll
 
 class bookcategory : AppCompatActivity() {
 
@@ -20,8 +21,19 @@ class bookcategory : AppCompatActivity() {
         list.add(homedata("Name3",0))
         list.add(homedata("Name4",1))
 
-        var categoryadapter=categoryadapter(list,applicationContext, NavController(this))
+        var categoryadapter=categoryadapter(list,this, NavController(this))
         binding.mRvCategory.adapter=categoryadapter
+        springscroll().attachToRecyclerView(binding.mRvCategory)
 
+    }
+
+    override fun onBackPressed() {
+        finish()
+        window.sharedElementEnterTransition = null
+        window.sharedElementReenterTransition=null
+        window.sharedElementReturnTransition=null
+        window.sharedElementExitTransition=null
+
+        super.onBackPressed()
     }
 }

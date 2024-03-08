@@ -1,7 +1,11 @@
 package com.mithilakshar.learnsource
 
+import android.app.Activity
+import android.app.ActivityOptions
+import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
@@ -20,7 +24,8 @@ class categoryadapter(var list:ArrayList<homedata>,var context: Context,var navC
 
                     val intent= Intent(context,bookdescriptions::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent)
+                    val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity, Pair.create(binding.mBookImage,"BookTrans"))
+                    context.startActivity(intent,options.toBundle())
                 }
 
             }

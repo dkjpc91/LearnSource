@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.mithilakshar.learnsource.databinding.FragmentHomeBinding
 import com.mithilakshar.learnsource.databinding.FragmentOnboardOneBinding
+import com.mithilakshar.learnsource.utils.springscroll
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,6 +46,8 @@ class HomeFragment : Fragment() {
 
         var homerecylceradapter= homerecylceradapter(list,requireContext(),findNavController())
         binding.homeRecycler.adapter=homerecylceradapter
+
+        springscroll().attachToRecyclerView(binding.homeRecycler)
     }
 
 

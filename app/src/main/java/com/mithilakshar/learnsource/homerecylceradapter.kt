@@ -1,7 +1,10 @@
 package com.mithilakshar.learnsource
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
@@ -13,6 +16,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.mithilakshar.learnsource.databinding.HrcboditemBinding
 import com.mithilakshar.learnsource.databinding.Hrcbook1Binding
+import com.mithilakshar.learnsource.utils.springscroll
 
 class homerecylceradapter(var datalist: ArrayList<homedata>,var context: Context,var navController: NavController) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -26,7 +30,10 @@ class homerecylceradapter(var datalist: ArrayList<homedata>,var context: Context
                 mSeeAllBtn.setOnClickListener {
 
 
-                    navController.navigate(R.id.action_homeFragment_to_bookcategory)
+                    val intent= Intent(context,bookcategory::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity, Pair.create(hrcbodnested,"bookTrans"))
+                    context.startActivity(intent,options.toBundle())
 
 
 
@@ -44,6 +51,7 @@ class homerecylceradapter(var datalist: ArrayList<homedata>,var context: Context
                 var hrcnestedadapter=hrcnestedadapter(list,context)
 
                 hrcbodnested.adapter=hrcnestedadapter
+                springscroll().attachToRecyclerView(hrcbodnested)
 
 
 
@@ -58,13 +66,17 @@ class homerecylceradapter(var datalist: ArrayList<homedata>,var context: Context
 
                 mReadBookBtn.setOnClickListener { val intent= Intent(context,bookdescriptions::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent) }
+                    val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity, Pair.create(imageView,"BookTrans"))
+                    context.startActivity(intent,options.toBundle()) }
 
                 binding.root.setOnClickListener {
 
                     val intent= Intent(context,bookdescriptions::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(intent)
+                    val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity, Pair.create(imageView,"BookTrans"))
+                    context.startActivity(intent,options.toBundle())
+
+
 
 
                 }
