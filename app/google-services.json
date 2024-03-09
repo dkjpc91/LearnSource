@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "11471765633",
+    "firebase_url": "https://learnsource-b533f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "learnsource-b533f",
+    "storage_bucket": "learnsource-b533f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11471765633:android:3bad2752497da753614d80",
+        "android_client_info": {
+          "package_name": "com.mithilakshar.learnsource"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4rE_idkqX2HBiQxvaqOTB_j3WUsaI3ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

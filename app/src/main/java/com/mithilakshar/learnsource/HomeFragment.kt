@@ -1,13 +1,25 @@
 package com.mithilakshar.learnsource
 
+import android.app.ActionBar
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.mithilakshar.learnsource.ViewModels.MainViewModel
+import com.mithilakshar.learnsource.ViewModels.MainViewModelFactory
 import com.mithilakshar.learnsource.databinding.FragmentHomeBinding
-import com.mithilakshar.learnsource.databinding.FragmentOnboardOneBinding
+import com.mithilakshar.learnsource.databinding.LayoutProgressBinding
+import com.mithilakshar.learnsource.repository.MainRepo
+import com.mithilakshar.learnsource.utils.myResponses
 import com.mithilakshar.learnsource.utils.springscroll
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,6 +35,13 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment() {
 
     private lateinit var binding:FragmentHomeBinding
+    var list= arrayListOf<homedata>()
+    private lateinit var viewModel:MainViewModel
+
+
+
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -38,17 +57,43 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var list= arrayListOf<homedata>()
-        list.add(homedata("Name1",0))
-        list.add(homedata("Name2",1))
-        list.add(homedata("Name3",0))
-        list.add(homedata("Name4",1))
+
+
+
 
         var homerecylceradapter= homerecylceradapter(list,requireContext(),findNavController())
+        val repo = MainRepo(requireActivity())
+        viewModel=ViewModelProvider(requireActivity(),MainViewModelFactory(repo))[MainViewModel::class.java]
+
+
+
+        viewModel.getHomeData()
+        viewModel.homeLiveData.observe(requireActivity(), Observer {
+            when(it){
+                is myResponses.Error -> {}
+                is myResponses.Loading -> {}
+                is myResponses.Success -> {
+                    list.clear()
+                    val tempList = it.data
+                    tempList?.forEach {
+                        list.add(it)
+                    }
+
+                    homerecylceradapter.notifyDataSetChanged()
+
+                }
+            }
+
+        })
         binding.homeRecycler.adapter=homerecylceradapter
+
+
+
 
         springscroll().attachToRecyclerView(binding.homeRecycler)
     }
+
+
 
 
     override fun onCreateView(

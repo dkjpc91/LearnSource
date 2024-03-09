@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -46,6 +47,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
+    implementation("com.google.firebase:firebase-database:20.3.1")
 
     testImplementation("junit:junit:4.13.2")
     implementation ("com.airbnb.android:lottie:6.2.0")
