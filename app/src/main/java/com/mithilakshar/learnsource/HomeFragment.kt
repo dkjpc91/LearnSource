@@ -1,9 +1,6 @@
 package com.mithilakshar.learnsource
 
-import android.app.ActionBar
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,14 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
+
 import androidx.navigation.fragment.findNavController
 import com.mithilakshar.learnsource.ViewModels.MainViewModel
 import com.mithilakshar.learnsource.ViewModels.MainViewModelFactory
 import com.mithilakshar.learnsource.databinding.FragmentHomeBinding
-import com.mithilakshar.learnsource.databinding.LayoutProgressBinding
 import com.mithilakshar.learnsource.repository.MainRepo
 import com.mithilakshar.learnsource.utils.myResponses
+import com.mithilakshar.learnsource.utils.networkcheck
 import com.mithilakshar.learnsource.utils.springscroll
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +30,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
+
+
 
     private lateinit var binding:FragmentHomeBinding
     var list= arrayListOf<homedata>()
@@ -57,8 +56,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
+        val networkChecker = networkcheck(requireActivity())
+        if (networkChecker.isConnected()){
+            Toast.makeText(requireActivity(),"Connected",Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(requireActivity(),"Not Connected",Toast.LENGTH_LONG).show()
+        }
 
 
         var homerecylceradapter= homerecylceradapter(list,requireContext(),findNavController())

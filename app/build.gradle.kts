@@ -48,6 +48,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
     implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
 
     testImplementation("junit:junit:4.13.2")
     implementation ("com.airbnb.android:lottie:6.2.0")
