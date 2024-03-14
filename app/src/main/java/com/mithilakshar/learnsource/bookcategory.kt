@@ -8,6 +8,8 @@ import androidx.navigation.NavController
 import com.mithilakshar.learnsource.ViewModels.MainViewModel
 import com.mithilakshar.learnsource.ViewModels.MainViewModelFactory
 import com.mithilakshar.learnsource.databinding.ActivityBookcategoryBinding
+import com.mithilakshar.learnsource.models.bookmodel
+import com.mithilakshar.learnsource.models.homedata
 import com.mithilakshar.learnsource.repository.MainRepo
 import com.mithilakshar.learnsource.utils.myResponses
 import com.mithilakshar.learnsource.utils.springscroll
@@ -16,58 +18,51 @@ class bookcategory : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookcategoryBinding
 
-    var list= arrayListOf<homedata>()
     val activity = this
-    var categoryadapter=categoryadapter(list,this, NavController(this))
+
     private val repo = MainRepo(this)
     private val viewModel by lazy {
-        ViewModelProvider(this,MainViewModelFactory(repo))[MainViewModel::class.java]
+        ViewModelProvider(this, MainViewModelFactory(repo))[MainViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityBookcategoryBinding.inflate(layoutInflater)
+        binding = ActivityBookcategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.getHomeData()
-        viewModel.homeLiveData.observe(activity, Observer {
-            when(it){
-                is myResponses.Error -> {}
-                is myResponses.Loading -> {}
-                is myResponses.Success -> {
-                    list.clear()
-                    val tempList = it.data
-                    tempList?.forEach {
-                        list.add(it)
-                    }
 
-                    categoryadapter.notifyDataSetChanged()
+        var list = arrayListOf<bookmodel>()
 
-                }
-            }
+        var categoryadapter = categoryadapter(list, this, NavController(this))
+        binding.mRvCategory.adapter = categoryadapter
 
-        })
+        val homedata = intent.getSerializableExtra("bookdata") as ArrayList<bookmodel>
+        homedata.forEach {
+            list.add(it)
+
+            categoryadapter.notifyDataSetChanged()
 
 
 
 
 
-        binding.mRvCategory.adapter=categoryadapter
-        springscroll().attachToRecyclerView(binding.mRvCategory)
 
-    }
-
-    private fun handleHomeBackend() {
+            springscroll().attachToRecyclerView(binding.mRvCategory)
 
         }
 
 
+    }
+
     override fun onBackPressed() {
         finish()
         window.sharedElementEnterTransition = null
-        window.sharedElementReenterTransition=null
-        window.sharedElementReturnTransition=null
-        window.sharedElementExitTransition=null
+        window.sharedElementReenterTransition = null
+        window.sharedElementReturnTransition = null
+        window.sharedElementExitTransition = null
 
         super.onBackPressed()
     }
+
 }
+

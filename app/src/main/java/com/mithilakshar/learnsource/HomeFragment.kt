@@ -11,9 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.mithilakshar.learnsource.ViewModels.MainViewModel
 import com.mithilakshar.learnsource.ViewModels.MainViewModelFactory
 import com.mithilakshar.learnsource.databinding.FragmentHomeBinding
+import com.mithilakshar.learnsource.models.homedata
 import com.mithilakshar.learnsource.repository.MainRepo
 import com.mithilakshar.learnsource.utils.myResponses
 import com.mithilakshar.learnsource.utils.networkcheck
@@ -63,6 +65,7 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireActivity(),"Not Connected",Toast.LENGTH_LONG).show()
         }
 
+        val sharedPool = RecyclerView.RecycledViewPool()
 
         var homerecylceradapter= homerecylceradapter(list,requireContext(),findNavController())
         val repo = MainRepo(requireActivity())
@@ -88,7 +91,9 @@ class HomeFragment : Fragment() {
             }
 
         })
+
         binding.homeRecycler.adapter=homerecylceradapter
+        binding.homeRecycler.setRecycledViewPool(sharedPool)
 
 
 

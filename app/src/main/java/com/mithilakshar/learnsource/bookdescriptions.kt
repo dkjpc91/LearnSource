@@ -1,6 +1,7 @@
 package com.mithilakshar.learnsource
 
 import android.app.ActionBar
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -8,11 +9,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.mithilakshar.learnsource.ViewModels.BookViewModel
 import com.mithilakshar.learnsource.ViewModels.BookViewModelFactory
 import com.mithilakshar.learnsource.databinding.ActivityBookdescriptionsBinding
 import com.mithilakshar.learnsource.databinding.LayoutProgressBinding
+import com.mithilakshar.learnsource.models.bookmodel
 import com.mithilakshar.learnsource.repository.repo
 import com.mithilakshar.learnsource.utils.myResponses
 
@@ -30,10 +34,20 @@ class bookdescriptions : AppCompatActivity() {
         binding=ActivityBookdescriptionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        val homedata = intent.getSerializableExtra("bookdata") as bookmodel
+
+        binding.apply {
+            Glide.with(this@bookdescriptions).load(homedata.image).thumbnail(0.5f).into(mBookImage)
+            mBookTitle.text=homedata.name
+            mBookDesc.text=homedata.description
+            mAuthorName.text=homedata.speak
+        }
+
         binding.mReadBookBtn.setOnClickListener {
 
 
-            viewModel.downloadFile("https://cdn.shopify.com/s/files/1/2081/8163/files/002-GINGER-THE-GIRAFFE-Free-Childrens-Book-By-Monkey-Pen.pdf?v=1589846892","book.pdf")
+            viewModel.downloadFile(homedata.bookpdflink,"${homedata.name}.pdf")
             val dialogBinding = LayoutProgressBinding.inflate(layoutInflater)
             val dialog=Dialog(activity).apply {
                 setCancelable(false)

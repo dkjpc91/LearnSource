@@ -8,23 +8,26 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.mithilakshar.learnsource.databinding.HomenesteditemBinding
-import com.mithilakshar.learnsource.databinding.HrcboditemBinding
-import com.mithilakshar.learnsource.databinding.Hrcbook1Binding
+import com.mithilakshar.learnsource.models.bookmodel
+import com.mithilakshar.learnsource.models.homedata
 
-class hrcnestedadapter(var list: ArrayList<homedata>,var context: Context):RecyclerView.Adapter<hrcnestedadapter.nestedviewholder>() {
+class hrcnestedadapter(var list: ArrayList<bookmodel>, var context: Context):RecyclerView.Adapter<hrcnestedadapter.nestedviewholder>() {
 
 
     class nestedviewholder(var binding: HomenesteditemBinding):RecyclerView.ViewHolder(binding.root){
-        fun itembind(homeModel:homedata,context:Context){
+        fun itembind(homeModel: bookmodel, context:Context){
 
             binding.apply{
+
+                Glide.with(context).load(homeModel.image).thumbnail(0.3f).into(imageView)
 
                 binding.root.setOnClickListener {
 
                     val intent= Intent(context,bookdescriptions::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("bookdata",homeModel)
                     val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity, Pair.create(imageView,"BookTrans"))
                     context.startActivity(intent,options.toBundle())
                 }

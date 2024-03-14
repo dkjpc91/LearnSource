@@ -7,10 +7,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.mithilakshar.learnsource.homedata
+import com.mithilakshar.learnsource.models.homedata
 import com.mithilakshar.learnsource.utils.myResponses
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class MainRepo(val context: Context) {
 
